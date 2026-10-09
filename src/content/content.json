@@ -1,0 +1,559 @@
+{
+  "template": {
+    "id": "info-event",
+    "title": "Info event",
+    "card": "A talk or meetup for your members and people who might join: plan it, promote it, run it, follow up.",
+    "guidance": {
+      "goal": "More people in your town who see why a pause is needed and possible, some of them joining your group, and a format you can repeat.",
+      "how": [
+        "Start with Plan the event: goal, format, date, speaker. Everything else depends on these.",
+        "Then book the room and create the Luma event, three to four weeks ahead; promotion, the talk and the on-the-day plan run in parallel.",
+        "The event is a recruiting conversation with a talk in the middle: collect contacts, end with one clear ask.",
+        "Follow up within two days; that is where attendees become members.",
+        "Give every sub-project an owner; don't do it alone."
+      ],
+      "takeCareOf": [
+        "One ask runs through everything: join the chat group, come to the next meeting, take a task.",
+        "Read the code of conduct and the safeguarding protocol before you invite anyone; you are responsible for the room.",
+        "Small and full beats big and empty; 15–30 people is a good first event."
+      ],
+      "resources": [
+        {
+          "title": "Running a local PauseAI community",
+          "url": "https://pauseai.info/local-organizing",
+          "members": false
+        },
+        {
+          "title": "Code of conduct",
+          "url": "https://pauseai.info/code-of-conduct",
+          "members": false
+        }
+      ]
+    },
+    "children": [
+      {
+        "id": "plan-the-event",
+        "title": "Plan the event",
+        "guidance": {
+          "goal": "Decide what everything else depends on: purpose, format, date, speaker.",
+          "how": [
+            "Goal first: a first meeting for people who might join, or a talk plus an action session where attendees act on the spot.",
+            "Format: a 20-minute talk, questions, time to mingle; or a documentary screening with the same ending.",
+            "Date: three to four weeks out, clear of local events your audience goes to.",
+            "Speaker: you or a co-organizer for a first event; an outside speaker once you have run one.",
+            "Write a paragraph with numbers (attendees, contacts, returners); then you know enough to book the room and open the event page."
+          ],
+          "takeCareOf": [
+            "One event, one goal: title, talk and ask all serve it; if you want members, leave more time for talking than slides.",
+            "Fix the ask now, so promotion and the talk can point at it."
+          ],
+          "resources": [
+            {
+              "title": "Running a local PauseAI community",
+              "url": "https://pauseai.info/local-organizing",
+              "members": false
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "plan-the-event--decide-the-goal-and-the-ask",
+            "title": "Decide the goal and the ask",
+            "hint": "One sentence: who should come, and what they should do at the end — join the chat, come again, take a task.",
+            "children": []
+          },
+          {
+            "id": "plan-the-event--choose-the-format",
+            "title": "Choose the format",
+            "hint": "Talk, questions, mingling; or a screening with a short intro and the same ask. 90 minutes is enough; a third of it for talking.",
+            "children": []
+          },
+          {
+            "id": "plan-the-event--set-the-date",
+            "title": "Set the date",
+            "hint": "Three to four weeks ahead; check for clashes with local events your audience goes to; confirm with your co-organizers.",
+            "children": []
+          },
+          {
+            "id": "plan-the-event--confirm-the-speaker",
+            "title": "Confirm the speaker",
+            "hint": "You or a co-organizer for a first event; agree length and message; put a rehearsal date in the calendar.",
+            "children": []
+          },
+          {
+            "id": "plan-the-event--set-targets",
+            "title": "Set targets",
+            "hint": "Numbers make it real: attendees, contacts collected, people at the next meeting. You compare against them in Follow-up.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "location",
+        "title": "Location",
+        "guidance": {
+          "goal": "A free room for 15–30 people that is easy to find, booked early.",
+          "how": [
+            "Ask in this order: public library, community center, university room, café or bookshop off-peak, town hall, church; most are free for community groups if you book ahead.",
+            "Book as soon as the date is set; ask for projector, chairs and closing time; get it in writing.",
+            "See the room before the event, or at least photos: entrance, screen, noise.",
+            "Directions beyond the street address — floor, room, how to get in — and a sign on the door; people who can't find you go home.",
+            "Leave the room as you found it and thank the host; you will want it again."
+          ],
+          "takeCareOf": [
+            "Reachable by public transport in the evening, step-free if possible.",
+            "A circle of chairs in a small room beats a half-empty lecture hall."
+          ],
+          "resources": [
+            {
+              "title": "Running a local PauseAI community",
+              "url": "https://pauseai.info/local-organizing",
+              "members": false
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "location--shortlist-three-venues",
+            "title": "Shortlist three venues",
+            "hint": "Library, community center, university room, café off-peak; free for community groups if you ask early; note capacity and closing time.",
+            "children": []
+          },
+          {
+            "id": "location--book-the-room",
+            "title": "Book the room",
+            "hint": "Confirm date, slot with 30 minutes setup, projector and chairs; get the booking in writing.",
+            "children": []
+          },
+          {
+            "id": "location--check-the-room",
+            "title": "Check the room",
+            "hint": "Visit or ask for photos: entrance, screen, sound, power; decide where the sign-up sheet sits.",
+            "children": []
+          },
+          {
+            "id": "location--write-the-directions",
+            "title": "Write the directions",
+            "hint": "Floor, room, how to get in after hours, a phone number; the same text goes on Luma and on the door sign.",
+            "children": []
+          },
+          {
+            "id": "location--optional-arrange-drinks-and-snacks",
+            "title": "(optional) Arrange drinks and snacks",
+            "hint": "Simple and cheap; people stay and talk longer with something in their hands; ask the venue what is allowed.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "give-a-good-talk",
+        "title": "Give a good talk",
+        "guidance": {
+          "goal": "Twenty minutes after which the room sees why a pause is needed and possible, and wants to help.",
+          "how": [
+            "Use the PauseAI pitch structure: your story, the problem, the solution (a pause), how we get there, why now, what to do tonight.",
+            "Take claims from Core positions; cite experts and sources, not opinions.",
+            "Pair every warning with a way to act; people move when they believe the risk is real and a pause achievable.",
+            "Twenty minutes, ten slides at most; people join in the conversation afterwards.",
+            "Rehearse once, timed, before a co-organizer; ask what they'd repeat to a friend."
+          ],
+          "takeCareOf": [
+            "Nonpartisan, no jargon, every number sourced, honest about uncertainty.",
+            "Tailor the problem section to the room: students, a climate group, the public.",
+            "In questions, acknowledge concerns, say what we know; don't try to win every argument."
+          ],
+          "resources": [
+            {
+              "title": "Core positions",
+              "url": "https://app.notion.com/p/pauseai-global/Social-media-pipeline-36881143917680bca731c5cd23becd3c",
+              "members": true
+            },
+            {
+              "title": "Running a local PauseAI community",
+              "url": "https://pauseai.info/local-organizing",
+              "members": false
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "give-a-good-talk--write-the-outline",
+            "title": "Write the outline",
+            "hint": "Six parts: your story, the problem, the pause, how we get there, why now, the ask; one line each before any slide.",
+            "children": []
+          },
+          {
+            "id": "give-a-good-talk--check-claims-against-core-positions",
+            "title": "Check claims against Core positions",
+            "hint": "Use the ten agreed lines and their sources; cut what you can't source; no party politics, no jargon.",
+            "children": []
+          },
+          {
+            "id": "give-a-good-talk--make-the-slides",
+            "title": "Make the slides",
+            "hint": "Ten at most, big text, a source under every number; the Collateral maker's slide format gives an on-brand title slide.",
+            "children": []
+          },
+          {
+            "id": "give-a-good-talk--prepare-for-questions",
+            "title": "Prepare for questions",
+            "hint": "List the five questions you expect and one honest answer each; where you don't know, say so and point to the sources.",
+            "children": []
+          },
+          {
+            "id": "give-a-good-talk--rehearse-once-timed",
+            "title": "Rehearse once, timed",
+            "hint": "Out loud, with slides, in front of a co-organizer; cut until it's 20 minutes; ask what they'd repeat to a friend.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "promote-the-event",
+        "title": "Promote the event",
+        "guidance": {
+          "goal": "The right people in the room: members, their friends, and people from nearby groups.",
+          "how": [
+            "Create the Luma event first; everything else points at it.",
+            "Make the Instagram image with the Collateral maker (Event layout, your details, download); post two weeks before and the day before.",
+            "Share it in local communities beyond PauseAI — uni groups, meetups, climate and effective altruism groups — with a line on why their members might care.",
+            "Invite people one by one; a direct ask with a date beats any post.",
+            "Check wording against How we do messaging; run unsure drafts through the Comms checker prompt."
+          ],
+          "takeCareOf": [
+            "Say what happens, when, where and for whom; nobody comes to a vague event.",
+            "Public posts carry the PauseAI name: nonpartisan, no jargon, verified claims.",
+            "Remind sign-ups the day before; many forget."
+          ],
+          "resources": [
+            {
+              "title": "How we do messaging",
+              "url": "https://app.notion.com/p/pauseai-global/Social-media-pipeline-36881143917680bca731c5cd23becd3c",
+              "members": true
+            },
+            {
+              "title": "Collateral maker",
+              "url": "https://pauseai.uk/tools/collateral",
+              "members": false
+            },
+            {
+              "title": "Comms checker prompt",
+              "url": "https://app.notion.com/p/pauseai-global/Social-media-pipeline-36881143917680bca731c5cd23becd3c",
+              "members": true
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "promote-the-event--create-the-luma-event",
+            "title": "Create the Luma event",
+            "hint": "Title, time, place with directions, three lines on what happens and for whom; submit it to the [PauseAI calendar](https://luma.com/PauseAI) so subscribers get notified.",
+            "children": []
+          },
+          {
+            "id": "promote-the-event--post-on-instagram",
+            "title": "Post on Instagram",
+            "hint": "Make the image with the [Collateral maker](https://pauseai.uk/tools/collateral): Event layout, your details, download; post two weeks before and again the day before.",
+            "children": []
+          },
+          {
+            "id": "promote-the-event--share-in-other-local-communities",
+            "title": "Share in other local communities",
+            "hint": "Uni groups, meetups, climate and effective altruism groups: a short personal message with the link and why their members might care.",
+            "children": []
+          },
+          {
+            "id": "promote-the-event--invite-people-personally",
+            "title": "Invite people personally",
+            "hint": "Each organizer asks five people directly, with the date: friends, classmates, coworkers. Direct asks bring more people than any post.",
+            "children": []
+          },
+          {
+            "id": "promote-the-event--optional-print-flyers",
+            "title": "(optional) Print flyers",
+            "hint": "Same tool, A6 or A5 format, about 100 copies; hand out near the venue a week before; see the [Flyering guide](https://pauseai.info/flyering).",
+            "children": []
+          },
+          {
+            "id": "promote-the-event--remind-sign-ups-the-day-before",
+            "title": "Remind sign-ups the day before",
+            "hint": "A short Luma message: time, directions, what to expect. Many sign-ups forget; a reminder is the cheapest way to fill the room.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "at-the-event",
+        "title": "At the event",
+        "guidance": {
+          "goal": "Everyone leaves with a next step and you with their contact: a recruiting conversation, not a lecture.",
+          "how": [
+            "Arrive 30 minutes early: sign on the door, chairs in a half circle, sign-up sheet, safeguarding contact visible.",
+            "Run it like a teach-in: mingling, the talk, questions, a short action everyone does together, the invitation to get involved.",
+            "In the breaks, ask newcomers what brought them and what they'd like to do.",
+            "Close with the ask: join the chat now, come to the next meeting on a named date, take a task.",
+            "Collect name, email and what they'd help with; enter it into your chapter's list that evening."
+          ],
+          "takeCareOf": [
+            "Safeguarding: a named contact, nobody alone with a minor, know how to handle a disclosure.",
+            "Give newcomers a small role on the day: door, sign-ups, photos. Helping once brings people back."
+          ],
+          "resources": [
+            {
+              "title": "Running a local PauseAI community",
+              "url": "https://pauseai.info/local-organizing",
+              "members": false
+            },
+            {
+              "title": "Safeguarding protocol and event checklist",
+              "url": "https://pauseai.info/safeguarding-protocol",
+              "members": false
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "at-the-event--prepare-sign-up-sheet-and-qr-code",
+            "title": "Prepare sign-up sheet and QR code",
+            "hint": "Name, email, \"I'd like to help with…\"; a QR code to the chat group invite; one sheet per table, pens.",
+            "children": []
+          },
+          {
+            "id": "at-the-event--assign-roles-for-the-day",
+            "title": "Assign roles for the day",
+            "hint": "Door and directions, sign-ups, photos, timekeeper, someone whose job is talking to newcomers; ask a new member to take one.",
+            "children": []
+          },
+          {
+            "id": "at-the-event--run-the-safeguarding-checklist",
+            "title": "Run the safeguarding checklist",
+            "hint": "Named contact on a visible slip, code of conduct linked on Luma, nobody alone with a minor; the protocol's event checklist has the rest.",
+            "children": []
+          },
+          {
+            "id": "at-the-event--plan-the-action-session",
+            "title": "Plan the action session",
+            "hint": "Ten minutes where everyone does something: write to their representative, join the chat, sign up for a task; prepare the materials.",
+            "children": []
+          },
+          {
+            "id": "at-the-event--make-the-ask-and-name-the-next-date",
+            "title": "Make the ask and name the next date",
+            "hint": "Join the chat now, next meeting on a date you announce, one task per volunteer; say it before questions and again last.",
+            "children": []
+          },
+          {
+            "id": "at-the-event--optional-take-photos",
+            "title": "(optional) Take photos",
+            "hint": "A few wide shots of a full room for the follow-up post; ask before posting faces.",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "follow-up",
+        "title": "Follow-up",
+        "guidance": {
+          "goal": "Turn the evening into members: within two days everyone who came hears from you with one thing to do.",
+          "how": [
+            "Next day, message everyone who signed up: thanks, chat invite, the next date, one way to help this week.",
+            "Offer a one-on-one to everyone who ticked \"I'd like to help\": 20–30 minutes, ending with a role and a first task.",
+            "Post the photos and two lines on how it went; thank venue and speaker.",
+            "Note attendees, contacts and returners against the numbers from Plan the event, plus one line on what to change.",
+            "Set the next date; recruiting continuously beats one burst."
+          ],
+          "takeCareOf": [
+            "Interest fades within days; a week later is too late.",
+            "Ask for something small and specific; \"let us know if you want to help\" gets no replies.",
+            "Contacts belong in your chapter's list, not your personal phone."
+          ],
+          "resources": [
+            {
+              "title": "Running a local PauseAI community",
+              "url": "https://pauseai.info/local-organizing",
+              "members": false
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "follow-up--message-everyone-who-came",
+            "title": "Message everyone who came",
+            "hint": "Within two days: thanks, chat invite, next meeting date, one concrete thing to do this week. Short and personal.",
+            "children": []
+          },
+          {
+            "id": "follow-up--hold-one-on-ones-with-interested-people",
+            "title": "Hold one-on-ones with interested people",
+            "hint": "20–30 minutes each: what brought them, what they'd like to do, how much time; leave with a role and a first task.",
+            "children": []
+          },
+          {
+            "id": "follow-up--post-the-photos",
+            "title": "Post the photos",
+            "hint": "A few photos and two lines on how it went; tag the chapter; thank venue and speaker publicly.",
+            "children": []
+          },
+          {
+            "id": "follow-up--record-the-numbers",
+            "title": "Record the numbers",
+            "hint": "Attendees, contacts, how many came again; one line on what to change next time; share it with your chapter.",
+            "children": []
+          },
+          {
+            "id": "follow-up--set-the-next-date",
+            "title": "Set the next date",
+            "hint": "Announce the next meeting while the event is fresh; the people you just met need somewhere to go.",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "comingSoon": [
+    {
+      "id": "protest",
+      "title": "Protest",
+      "description": "A peaceful public protest or creative action that gets attention from passers-by, journalists and decision-makers: place and date, signs and flyers, a press release and media invites, roles for the day, speeches and chants prepared in advance. Built on the guide to organizing a PauseAI protest, with the legal part for your country."
+    },
+    {
+      "id": "coalition-building",
+      "title": "Coalition building",
+      "description": "Reach the people around you with influence or reach: local politicians, journalists, other groups, and the well-connected. One owner per contact, a good first email and notes on how to talk to them, sent and tracked through the outreach pipeline; for groups with committed volunteers."
+    }
+  ],
+  "resourceGroups": [
+    {
+      "title": "Templates",
+      "entries": [
+        {
+          "title": "Info event",
+          "url": null,
+          "status": "built in this portal",
+          "description": "a talk or meetup for members and people who might join, promoted and followed up",
+          "members": false,
+          "id": "info-event"
+        },
+        {
+          "title": "Protest",
+          "url": "https://pauseai.info/organizing-a-protest",
+          "status": null,
+          "description": "coming soon; until then, the public guide to organizing a PauseAI protest",
+          "members": false,
+          "id": "protest"
+        },
+        {
+          "title": "Coalition building",
+          "url": null,
+          "status": "coming soon",
+          "description": "local politicians, journalists, groups and well-connected people, reached through the outreach pipeline",
+          "members": false,
+          "id": "coalition-building"
+        }
+      ]
+    },
+    {
+      "title": "Guides",
+      "entries": [
+        {
+          "title": "Running a local PauseAI community",
+          "url": "https://pauseai.info/local-organizing",
+          "status": null,
+          "description": "recruiting, venues, the pitch structure, event agendas and meeting practice for local organizers",
+          "members": false,
+          "id": "running-a-local-pauseai-community"
+        },
+        {
+          "title": "How we do messaging",
+          "url": "https://app.notion.com/p/pauseai-global/Social-media-pipeline-36881143917680bca731c5cd23becd3c",
+          "status": null,
+          "description": "our tone and framing, with a section on leading a local group",
+          "members": true,
+          "id": "how-we-do-messaging"
+        },
+        {
+          "title": "Core positions",
+          "url": "https://app.notion.com/p/pauseai-global/Social-media-pipeline-36881143917680bca731c5cd23becd3c",
+          "status": null,
+          "description": "the ten agreed one-liners every chapter uses, with their sources",
+          "members": true,
+          "id": "core-positions"
+        },
+        {
+          "title": "Safeguarding protocol and event checklist",
+          "url": "https://pauseai.info/safeguarding-protocol",
+          "status": null,
+          "description": "the pre-event checklist, safeguarding contacts, and what to do with a disclosure",
+          "members": false,
+          "id": "safeguarding-protocol-and-event-checklist"
+        },
+        {
+          "title": "Flyering",
+          "url": "https://pauseai.info/flyering",
+          "status": null,
+          "description": "flyer contents, printing, where to stand and how to talk to passers-by",
+          "members": false,
+          "id": "flyering"
+        }
+      ]
+    },
+    {
+      "title": "Tools",
+      "entries": [
+        {
+          "title": "Collateral maker",
+          "url": "https://pauseai.uk/tools/collateral",
+          "status": null,
+          "description": "on-brand posts, event covers, flyers and posters from a form; nothing leaves your browser",
+          "members": false,
+          "id": "collateral-maker"
+        },
+        {
+          "title": "Comms checker prompt",
+          "url": "https://app.notion.com/p/pauseai-global/Social-media-pipeline-36881143917680bca731c5cd23becd3c",
+          "status": null,
+          "description": "a prompt that red-teams any draft against our messaging before you post",
+          "members": true,
+          "id": "comms-checker-prompt"
+        }
+      ]
+    },
+    {
+      "title": "Chapter documents",
+      "entries": [
+        {
+          "title": "Theory of change",
+          "url": "https://pauseai.info/theory-of-change",
+          "status": null,
+          "description": "why an organized constituency moves policymakers, and what PauseAI does about it",
+          "members": false,
+          "id": "theory-of-change"
+        },
+        {
+          "title": "Code of conduct",
+          "url": "https://pauseai.info/code-of-conduct",
+          "status": null,
+          "description": "how we treat each other and the public; read it before your first event",
+          "members": false,
+          "id": "code-of-conduct"
+        },
+        {
+          "title": "Brand & logos",
+          "url": "https://drive.google.com/drive/folders/1bQ_MZ8giK-Mee4ABkO0BgcFInaXruNpa",
+          "status": null,
+          "description": "logos, colors and fonts in the public press-materials folder",
+          "members": false,
+          "id": "brand-logos"
+        },
+        {
+          "title": "Local group start guide",
+          "url": "https://app.notion.com/p/pauseai-global/Social-media-pipeline-36881143917680bca731c5cd23becd3c",
+          "status": null,
+          "description": "the five stages from first chat group to an established group",
+          "members": true,
+          "id": "local-group-start-guide"
+        }
+      ]
+    }
+  ]
+}

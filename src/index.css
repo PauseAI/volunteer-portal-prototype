@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* Design tokens: the PauseAI website's (PauseAI/temp-wip-pauseai-website-refresh, src/design/tokens.css), inverted
+   to a light theme for a text-heavy tool (project Spec 31–32). Role names only; Tailwind's default palette, fonts,
+   sizes and radii are switched off, so only these values exist as classes. */
+@theme static {
+  --color-*: initial;
+  --color-background: #f5efe4; /* cream ground */
+  --color-surface: #fbf8f3; /* cards, panels, fields: a lighter cream, so they stand out without shadows */
+  --color-foreground: #201b2a; /* ink: text, primary button fill, checked boxes */
+  --color-heading: #2d2838; /* headings */
+  --color-muted-foreground: color-mix(in srgb, #201b2a 80%, transparent); /* secondary text */
+  --color-placeholder: color-mix(in srgb, #201b2a 55%, transparent); /* placeholders */
+  --color-hover: color-mix(in srgb, #201b2a 6%, transparent); /* row and secondary button hover */
+  --color-border: color-mix(in srgb, #201b2a 16%, transparent); /* cards, panels, dividers */
+  --color-input: color-mix(in srgb, #201b2a 37%, transparent); /* field edges, secondary button border */
+  --color-brand-accent: #ff9416; /* accent only: link underline, active tab, focus ring; never fills, buttons or icons */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+}
+
+@theme {
+  --font-*: initial;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+
+  /* nothing under 14px */
+  --text-*: initial;
+  --text-h1: 40px;
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: 26px;
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: 20px;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: -0.01em;
+  --text-lead: 18px;
+  --text-lead--line-height: 1.5;
+  --text-body: 16px;
+  --text-body--line-height: 1.55;
+  --text-small: 15px;
+  --text-small--line-height: 1.5;
+  --text-caption: 14px;
+  --text-caption--line-height: 1.45;
+
+  --radius-*: initial;
+  --radius-control: 8px; /* buttons, fields */
+  --radius-card: 16px; /* cards, panels */
+  --radius-full: 9999px;
+
+  --container-page: 1120px;
+  --container-item: 880px;
+}
+
+@layer base {
+  html {
+    background: var(--color-background);
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-variant-numeric: tabular-nums;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-heading);
+    text-wrap: balance;
+  }
+  strong,
+  b {
+    font-weight: 600;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+  ::placeholder {
+    color: var(--color-placeholder);
+    opacity: 1;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-accent);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--color-foreground);
+    color: var(--color-background);
+  }
+}
