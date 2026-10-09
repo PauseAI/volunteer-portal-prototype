@@ -1,14 +1,21 @@
 import { ArrowRight, Plus } from 'lucide-react'
-import { accentLink, buttonClass, Card, cn, ProgressBar } from '../components/ui'
+import { useState } from 'react'
+import { accentLink, buttonClass, Card, cn, Disclosure, ProgressBar } from '../components/ui'
 import { infoEvent } from '../content/content'
 import { memberName, user } from '../data/seed'
 import { formatDate, progress, type Item } from '../items'
 import { href } from '../router'
 import { useStore } from '../store'
 
-/** My Projects (Spec 9–11): the projects you work on; empty for a new organizer except the curated start. */
+/**
+ * My Projects (Spec 9–11): the projects you work on; empty for a new organizer except the curated start.
+ * Done projects move to "Past projects", hidden until opened (Simon, 2026-10-09).
+ */
 export function MyProjects() {
   const { projects } = useStore()
+  const [showPast, setShowPast] = useState(false)
+  const open = projects.filter((p) => !p.done)
+  const past = projects.filter((p) => p.done)
   return (
     <>
       <div className="flex flex-wrap items-end justify-between gap-6">
@@ -23,16 +30,32 @@ export function MyProjects() {
       </div>
       {projects.length === 0 ? (
         <StartCard />
+      ) : open.length > 0 ? (
+        <ProjectGrid projects={open} className="mt-10" />
       ) : (
-        <ul className="mt-10 grid gap-4 md:grid-cols-2">
-          {projects.map((project) => (
-            <li key={project.id}>
-              <ProjectCard project={project} />
-            </li>
-          ))}
-        </ul>
+        <p className="mt-10 text-lead text-muted-foreground">No open projects.</p>
+      )}
+      {past.length > 0 && (
+        <section className="mt-12">
+          <Disclosure open={showPast} onToggle={() => setShowPast(!showPast)} testId="past-projects-toggle">
+            Past projects ({past.length})
+          </Disclosure>
+          {showPast && <ProjectGrid projects={past} className="mt-4" />}
+        </section>
       )}
     </>
+  )
+}
+
+function ProjectGrid({ projects, className }: { projects: Item[]; className?: string }) {
+  return (
+    <ul className={cn('grid gap-4 md:grid-cols-2', className)}>
+      {projects.map((project) => (
+        <li key={project.id}>
+          <ProjectCard project={project} />
+        </li>
+      ))}
+    </ul>
   )
 }
 

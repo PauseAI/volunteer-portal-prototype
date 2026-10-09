@@ -1,6 +1,6 @@
-import { Check, ChevronDown } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { useState, type FormEvent, type ReactNode } from 'react'
-import { Breadcrumbs, Button, cn, Tag } from '../components/ui'
+import { Breadcrumbs, Button, cn, Disclosure, Tag } from '../components/ui'
 import { comingSoon, infoEvent } from '../content/content'
 import { user } from '../data/seed'
 import { blankItem, instantiate } from '../items'
@@ -65,16 +65,11 @@ export function NewProject({ template }: { template: string | null }) {
             </TemplateCard>
           </div>
 
-          <button
-            type="button"
-            data-testid="browse-templates"
-            aria-expanded={browsing}
-            onClick={() => setBrowsing(!browsing)}
-            className="mt-5 inline-flex items-center gap-1.5 rounded-control font-semibold hover:text-muted-foreground"
-          >
-            Browse templates
-            <ChevronDown aria-hidden strokeWidth={1.5} className={cn('size-5 transition-transform', browsing && 'rotate-180')} />
-          </button>
+          <div className="mt-5">
+            <Disclosure open={browsing} onToggle={() => setBrowsing(!browsing)} testId="browse-templates">
+              Browse templates
+            </Disclosure>
+          </div>
           {browsing && (
             <ul
               data-testid="template-library"

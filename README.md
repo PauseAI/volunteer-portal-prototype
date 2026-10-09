@@ -10,7 +10,8 @@ Live: https://pauseai.github.io/volunteer-portal-prototype/
 
 State lives in the browser's `localStorage` (key `pauseai-volunteer-portal-prototype:v1`); a first visit starts as a
 new organizer (Sam Rivera) with no projects. A project is owned by whoever creates it; its sub-items start without an
-owner. Two ways to reset it:
+owner. Done projects and done sub-items are hidden under "Past projects" / "Done steps" until opened. Two ways to
+reset it:
 
 1. Open the site with `?reset=1`, e.g. https://pauseai.github.io/volunteer-portal-prototype/?reset=1 — the parameter
    clears the state and removes itself from the address bar.
@@ -24,12 +25,13 @@ For scripted walkthroughs and recordings (`page.get_by_test_id(...)` in Playwrig
 |---|---|
 | Top bar tabs | `tab-projects`, `tab-resources`, `tab-teams` |
 | Banner, its close button | `banner`, `banner-dismiss` |
-| My projects: new-project button, curated start card and its link, project cards | `new-project`, `start-card`, `start-info-event`, `project-card` |
+| My projects: new-project button, curated start card and its link, project cards, past-projects toggle | `new-project`, `start-card`, `start-info-event`, `project-card`, `past-projects-toggle` |
 | New project: title, template cards, browse toggle, library rows, create | `project-title`, `template-empty`, `template-info-event`, `template-protest`, `browse-templates`, `library-<id>`, `create-project` |
 | Item page: title, done, owner, due, from-template link | `item-title`, `done-checkbox`, `owner-select`, `due-input`, `from-template` |
 | Guidance block, its toggle | `guidance`, `guidance-toggle` |
 | Sub-item rows: row, done box, link, remove, owner | `step`, `step-done`, `step-link`, `remove-item`, `step-owner` |
 | Add a sub-item: input, button (with an empty input the button focuses it) | `add-item-input`, `add-item` |
+| Done sub-items (hidden until the toggle opens them): toggle, list | `done-steps-toggle`, `done-steps` |
 | Resources: cards, use-template button, template steps | `resource-<id>`, `use-template`, `resource-step` |
 | Teams: city search, rows, apply buttons | `city-search`, `local-group`, `national-team`, `apply-<id>` |
 | Reset | `reset-demo` |

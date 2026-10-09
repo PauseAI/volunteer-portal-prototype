@@ -1,7 +1,7 @@
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
 import { useLayoutEffect, useRef, useState, type FormEvent } from 'react'
 import { GuidanceBlock } from '../components/Guidance'
-import { Breadcrumbs, Button, Checkbox, cn } from '../components/ui'
+import { Breadcrumbs, Button, Checkbox, cn, Disclosure } from '../components/ui'
 import { infoEvent } from '../content/content'
 import { members, user } from '../data/seed'
 import { blankItem, findPath, formatDate, progress, removeItem, updateItem, type Item } from '../items'
@@ -168,8 +168,12 @@ function OwnerSelect({ item, inline = false }: { item: Item; inline?: boolean })
   )
 }
 
+/** The sub-items: open ones in the list, done ones under "Done steps", hidden until opened (Simon, 2026-10-09). */
 function SubItems({ item }: { item: Item }) {
-  const done = item.children.filter((c) => c.done).length
+  const [showDone, setShowDone] = useState(false)
+  const open = item.children.filter((c) => !c.done)
+  const doneItems = item.children.filter((c) => c.done)
+  const done = doneItems.length
   return (
     <section className="mt-10">
       <div className="mb-3 flex items-baseline justify-between gap-4">
@@ -180,17 +184,33 @@ function SubItems({ item }: { item: Item }) {
           </p>
         )}
       </div>
-      <ul data-testid="steps" className="divide-y divide-border overflow-hidden rounded-card border border-border bg-surface">
-        {item.children.map((child) => (
+      <ul data-testid="steps" className={listClass}>
+        {open.map((child) => (
           <SubItemRow key={child.id} item={child} />
         ))}
         <li>
           <AddItem parentId={item.id} />
         </li>
       </ul>
+      {done > 0 && (
+        <div className="mt-5">
+          <Disclosure open={showDone} onToggle={() => setShowDone(!showDone)} testId="done-steps-toggle">
+            Done steps ({done})
+          </Disclosure>
+          {showDone && (
+            <ul data-testid="done-steps" className={cn(listClass, 'mt-3')}>
+              {doneItems.map((child) => (
+                <SubItemRow key={child.id} item={child} />
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
     </section>
   )
 }
+
+const listClass = 'divide-y divide-border overflow-hidden rounded-card border border-border bg-surface'
 
 /** A sub-item in its parent's list; on narrow screens its count, due date, remove button and owner take a second line. */
 function SubItemRow({ item }: { item: Item }) {

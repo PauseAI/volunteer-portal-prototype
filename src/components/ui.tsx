@@ -1,4 +1,4 @@
-import { Check, ChevronRight } from 'lucide-react'
+import { Check, ChevronDown, ChevronRight } from 'lucide-react'
 import { Fragment, type ComponentProps, type ReactNode } from 'react'
 
 export const cn = (...classes: (string | false | null | undefined)[]) => classes.filter(Boolean).join(' ')
@@ -136,5 +136,21 @@ export function ProgressBar({ done, total }: { done: number; total: number }) {
         {done} of {total} done
       </span>
     </div>
+  )
+}
+
+/** A show/hide toggle for a hidden-by-default group, e.g. past projects or done steps. */
+export function Disclosure({ open, onToggle, testId, children }: { open: boolean; onToggle: () => void; testId: string; children: ReactNode }) {
+  return (
+    <button
+      type="button"
+      data-testid={testId}
+      aria-expanded={open}
+      onClick={onToggle}
+      className="inline-flex items-center gap-1.5 rounded-control font-semibold hover:text-muted-foreground"
+    >
+      {children}
+      <ChevronDown aria-hidden strokeWidth={1.5} className={cn('size-5 transition-transform', open && 'rotate-180')} />
+    </button>
   )
 }

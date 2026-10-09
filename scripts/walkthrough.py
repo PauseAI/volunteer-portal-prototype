@@ -99,26 +99,39 @@ with sync_playwright() as p:
     tid("add-item").click()
     expect(tid("step")).to_have_count(1)
 
-    # back up: add and remove an item
+    # back up: the done task is hidden under "Done steps"; add and remove an item
     page.get_by_role("navigation", name="Breadcrumb").get_by_role("link", name="Promote the event").click()
-    expect(tid("step")).to_have_count(6)
+    expect(tid("step")).to_have_count(5)
+    expect(tid("done-steps-toggle")).to_have_text("Done steps (1)")
+    expect(tid("done-steps")).to_have_count(0)  # hidden by default
     tid("add-item").click()  # nothing typed yet: Add puts the cursor into the field instead of doing nothing
     expect(tid("add-item-input")).to_be_focused()
-    expect(tid("step")).to_have_count(6)
+    expect(tid("step")).to_have_count(5)
     page.keyboard.type("Ask the uni climate group to share it")
     tid("add-item").click()
-    expect(tid("step")).to_have_count(7)
+    expect(tid("step")).to_have_count(6)
     expect(tid("add-item-input")).to_be_focused()  # ready for the next one
     page.keyboard.type("Ask the library to put up a poster")
     page.keyboard.press("Enter")
-    expect(tid("step")).to_have_count(8)
+    expect(tid("step")).to_have_count(7)
     expect(tid("step").last).to_contain_text("Ask the library to put up a poster")
     row = tid("step").filter(has_text="(optional) Print flyers")
     row.hover()
     shot("sub-project-added-item-hover-remove")
     row.get_by_test_id("remove-item").click()
-    expect(tid("step")).to_have_count(7)
+    expect(tid("step")).to_have_count(6)
     shot("sub-project-removed-item")
+    tid("done-steps-toggle").click()
+    expect(tid("done-steps").get_by_test_id("step")).to_have_count(1)
+    expect(tid("done-steps")).to_contain_text("Post on Instagram")
+    tid("done-steps-toggle").scroll_into_view_if_needed()
+    shot("sub-project-done-steps-shown")
+    tid("done-steps").get_by_test_id("step-done").click()  # not done after all: back to the open steps
+    expect(tid("done-steps-toggle")).to_have_count(0)
+    expect(tid("step")).to_have_count(7)
+    tid("step").filter(has_text="Post on Instagram").get_by_test_id("step-done").click()  # done again
+    expect(tid("steps").get_by_test_id("step")).to_have_count(6)
+    expect(tid("done-steps")).to_contain_text("Post on Instagram")  # the group stays open while on the page
 
     # the project again, then its template on Resources
     page.get_by_role("navigation", name="Breadcrumb").get_by_role("link", name=TITLE).click()
@@ -160,6 +173,16 @@ with sync_playwright() as p:
     tid("banner-dismiss").click()
     expect(tid("banner")).to_have_count(0)
     shot("my-projects-no-banner")
+
+    # a done project moves to "Past projects", hidden by default
+    tid("project-card").click()
+    tid("done-checkbox").click()
+    tid("tab-projects").click()
+    expect(tid("project-card")).to_have_count(0)
+    expect(tid("past-projects-toggle")).to_have_text("Past projects (1)")
+    tid("past-projects-toggle").click()
+    expect(tid("project-card")).to_have_count(1)
+    shot("my-projects-past-shown")
 
     # hidden reset
     tid("reset-demo").click()
