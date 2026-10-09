@@ -59,24 +59,15 @@ function ProjectGrid({ projects, className }: { projects: Item[]; className?: st
   )
 }
 
-/** The curated start (Spec 11): one card instead of a menu. */
+/** The curated start (Spec 11): one line and the link, nothing else (Simon, 2026-10-09). */
 function StartCard() {
   return (
     <Card data-testid="start-card" className="mt-10 p-8">
       <h2 className="text-h2">New local group? Run your first info event</h2>
-      <p className="mt-3 max-w-prose text-lead text-muted-foreground">{infoEvent.card}</p>
-      <ol className="mt-6 flex flex-wrap gap-2">
-        {infoEvent.children.map((child, i) => (
-          <li key={child.id} className="flex h-9 items-center gap-2 rounded-control border border-border px-3 text-small">
-            <span className="font-semibold text-muted-foreground">{i + 1}</span>
-            {child.title}
-          </li>
-        ))}
-      </ol>
       <a
         href={href.newProject(infoEvent.id)}
         data-testid="start-info-event"
-        className={cn(accentLink, 'mt-7 inline-flex items-center gap-1.5 font-semibold')}
+        className={cn(accentLink, 'mt-4 inline-flex items-center gap-1.5 font-semibold')}
       >
         Start from the Info event template
         <ArrowRight aria-hidden className="size-4" strokeWidth={2} />

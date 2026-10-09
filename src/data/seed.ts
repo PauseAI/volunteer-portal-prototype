@@ -2,16 +2,16 @@
 
 export type Member = { id: string; name: string }
 
-export const user: Member = { id: 'sam', name: 'Sam Rivera' }
+export const user: Member = { id: 'peter', name: 'Peter Pauser' }
 
 /** The members of PauseAI Pausetown: the owner dropdown. */
 export const members: Member[] = [
   user,
-  { id: 'priya', name: 'Priya Nair' },
-  { id: 'jonas', name: 'Jonas Weber' },
-  { id: 'amara', name: 'Amara Okafor' },
-  { id: 'lena', name: 'Lena Fischer' },
-  { id: 'tom', name: 'Tom Brooks' },
+  { id: 'hannah', name: 'Hannah Halt' },
+  { id: 'stan', name: 'Stan Still' },
+  { id: 'wendy', name: 'Wendy Wait' },
+  { id: 'bruno', name: 'Bruno Brake' },
+  { id: 'rosa', name: 'Rosa Rest' },
 ]
 
 export const myGroup = 'pausetown'

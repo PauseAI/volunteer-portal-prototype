@@ -8,12 +8,11 @@ export type State = {
   projects: Item[]
   applied: string[] // teams and local groups applied to
   collapsed: Record<string, boolean> // guidance blocks collapsed, per item
-  bannerDismissed: boolean
 }
 
-export const STORAGE_KEY = 'pauseai-volunteer-portal-prototype:v1'
+export const STORAGE_KEY = 'pauseai-volunteer-portal-prototype:v2' // bumped when the stored shape changes: old state is dropped
 
-const seed = (): State => ({ projects: [], applied: [], collapsed: {}, bannerDismissed: false })
+const seed = (): State => ({ projects: [], applied: [], collapsed: {} })
 
 function handleResetParam() {
   const params = new URLSearchParams(location.search)

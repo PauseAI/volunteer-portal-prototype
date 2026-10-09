@@ -1,4 +1,3 @@
-import { X } from 'lucide-react'
 import { useEffect } from 'react'
 import logo from './assets/pauseai-logo.svg'
 import { cn } from './components/ui'
@@ -10,7 +9,7 @@ import { Resources } from './pages/Resources'
 import { Teams } from './pages/Teams'
 import { TemplatePage } from './pages/TemplatePage'
 import { href, parseRoute, useHash, type Route } from './router'
-import { resetDemo, setState, useStore } from './store'
+import { resetDemo } from './store'
 
 type Tab = 'projects' | 'resources' | 'teams'
 
@@ -28,7 +27,6 @@ export default function App() {
   const hash = useHash()
   const route = parseRoute(hash)
   const tab = tabOf(route)
-  const { bannerDismissed } = useStore()
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -39,7 +37,6 @@ export default function App() {
     <div className="min-h-screen">
       <TopBar tab={tab} />
       <main className="mx-auto max-w-page px-5 pt-8 pb-28 md:px-10">
-        {!bannerDismissed && <Banner />}
         {route.name === 'projects' && <MyProjects />}
         {route.name === 'new' && <NewProject key={hash} template={route.template} />}
         {route.name === 'item' && <ItemPage key={route.id} id={route.id} />}
@@ -89,31 +86,5 @@ function TopBar({ tab }: { tab: Tab }) {
         </p>
       </div>
     </header>
-  )
-}
-
-/** For someone who opens the link cold (Spec 4): three lines, dismissible. */
-function Banner() {
-  return (
-    <div data-testid="banner" className="mb-10 flex items-start gap-4 rounded-card border border-border bg-surface py-4 pr-4 pl-6">
-      <div className="flex-1 text-small">
-        <p className="font-semibold">This is a prototype of the PauseAI volunteer portal, the place where local groups plan and run their work.</p>
-        <p className="text-muted-foreground">
-          You are {user.name}, who just started the local group PauseAI Pausetown. Names are made up; what you change stays in this browser.
-        </p>
-        <p className="text-muted-foreground">
-          Click <span className="font-semibold text-foreground">New project</span> and pick the Info event template to see the flow.
-        </p>
-      </div>
-      <button
-        type="button"
-        data-testid="banner-dismiss"
-        aria-label="Dismiss"
-        onClick={() => setState((s) => ({ ...s, bannerDismissed: true }))}
-        className="grid size-9 shrink-0 place-items-center rounded-control text-muted-foreground hover:bg-hover hover:text-foreground"
-      >
-        <X aria-hidden className="size-5" strokeWidth={1.5} />
-      </button>
-    </div>
   )
 }
