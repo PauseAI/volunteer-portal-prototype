@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import logo from './assets/pauseai-logo.svg'
 import { cn } from './components/ui'
 import { chapter, user } from './data/seed'
+import { Collateral } from './pages/Collateral'
 import { ItemPage } from './pages/ItemPage'
 import { MyProjects } from './pages/MyProjects'
 import { NewProject } from './pages/NewProject'
@@ -43,6 +44,7 @@ export default function App() {
         {route.name === 'resources' && <Resources />}
         {route.name === 'template' && <TemplatePage path={route.path} />}
         {route.name === 'teams' && <Teams />}
+        {route.name === 'collateral' && <Collateral />}
       </main>
       <button
         type="button"

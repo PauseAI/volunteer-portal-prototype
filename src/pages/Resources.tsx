@@ -32,10 +32,14 @@ export function Resources() {
   )
 }
 
+// Built in-app, so these link to our own page rather than out to pauseai.uk.
+const INTERNAL_RESOURCE_LINKS: Record<string, string> = { 'collateral-maker': href.collateral }
+
 function ResourceCard({ entry }: { entry: ResourceEntry }) {
   const isBuilt = entry.id === infoEvent.id
+  const internal = INTERNAL_RESOURCE_LINKS[entry.id]
   const isSoon = entry.status === 'coming soon'
-  const link = isBuilt ? href.template(infoEvent.id) : entry.url
+  const link = isBuilt ? href.template(infoEvent.id) : (internal ?? entry.url)
   const body = (
     <>
       <span className="flex items-start justify-between gap-3">
@@ -50,6 +54,11 @@ function ResourceCard({ entry }: { entry: ResourceEntry }) {
           {isBuilt ? (
             <>
               Template · {infoEvent.children.length} steps
+              <ArrowRight aria-hidden className="ml-auto size-5" strokeWidth={1.5} />
+            </>
+          ) : internal ? (
+            <>
+              Open tool
               <ArrowRight aria-hidden className="ml-auto size-5" strokeWidth={1.5} />
             </>
           ) : (
@@ -69,7 +78,7 @@ function ResourceCard({ entry }: { entry: ResourceEntry }) {
     <a
       href={link}
       data-testid={`resource-${entry.id}`}
-      {...(isBuilt ? {} : { target: '_blank', rel: 'noreferrer' })}
+      {...(isBuilt || internal ? {} : { target: '_blank', rel: 'noreferrer' })}
       className={cn(card, 'transition-colors hover:border-input')}
     >
       {body}
