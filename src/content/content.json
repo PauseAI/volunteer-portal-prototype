@@ -380,12 +380,12 @@
           "id": "collateral-maker"
         },
         {
-          "title": "Comms checker prompt",
-          "url": "https://app.notion.com/p/pauseai-global/Comms-checker-prompt-3ac81143917680cc8449f53877606b3c",
+          "title": "Outreach pipeline",
+          "url": "https://178-104-32-192.sslip.io/",
           "status": null,
-          "description": "a prompt that red-teams any draft against our messaging before you post",
-          "members": true,
-          "id": "comms-checker-prompt"
+          "description": "prototype: finds contacts, sends email campaigns from your own Gmail, tracks replies and meetings",
+          "members": false,
+          "id": "outreach-pipeline"
         }
       ]
     },
