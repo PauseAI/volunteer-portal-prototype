@@ -9,6 +9,7 @@ export type Route =
   | { name: 'resources' }
   | { name: 'template'; path: string[] }
   | { name: 'teams' }
+  | { name: 'collateral' }
 
 export function parseRoute(hash: string): Route {
   const [path, query = ''] = hash.replace(/^#\/?/, '').split('?')
@@ -18,6 +19,7 @@ export function parseRoute(hash: string): Route {
   if (parts[0] === 'resources' && parts[1]) return { name: 'template', path: parts.slice(1) }
   if (parts[0] === 'resources') return { name: 'resources' }
   if (parts[0] === 'teams') return { name: 'teams' }
+  if (parts[0] === 'collateral') return { name: 'collateral' }
   return { name: 'projects' }
 }
 
@@ -28,6 +30,7 @@ export const href = {
   resources: '#/resources',
   template: (...path: string[]) => `#/resources/${path.join('/')}`,
   teams: '#/teams',
+  collateral: '#/collateral',
 }
 
 export function navigate(to: string) {

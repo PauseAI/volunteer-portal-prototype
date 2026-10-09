@@ -121,7 +121,7 @@
           {
             "id": "give-a-good-talk--make-the-slides",
             "title": "Make the slides",
-            "hint": "Ten at most, big text, a source under every number; the slide format of the [Collateral maker](https://pauseai.uk/tools/collateral) gives an on-brand title slide.",
+            "hint": "Ten at most, big text, a source under every number; the slide format of the [Collateral maker](https://pauseai.info/tools/collateral) gives an on-brand title slide.",
             "children": []
           },
           {
@@ -145,7 +145,7 @@
         "guidance": [
           "Goal: the right people in the room — members, their friends, and people from nearby groups.",
           "Say what happens, when, where and for whom; nobody comes to a vague event. The Luma event is the one link everything else points at. A direct ask with a date beats any post, so each organizer invites people personally.",
-          "Public posts carry the PauseAI name: nonpartisan, no jargon, verified claims. Check wording against [How we do messaging](https://app.notion.com/p/pauseai-global/How-we-do-messaging-3758114391768082b456d3a51e688e41) (members) and run unsure drafts through the [Comms checker prompt](https://app.notion.com/p/pauseai-global/Comms-checker-prompt-3ac81143917680cc8449f53877606b3c) (members). Images come from the [Collateral maker](https://pauseai.uk/tools/collateral): its Event layout makes an on-brand post, Luma cover or flyer from a form.",
+          "Public posts carry the PauseAI name: nonpartisan, no jargon, verified claims. Check wording against [How we do messaging](https://app.notion.com/p/pauseai-global/How-we-do-messaging-3758114391768082b456d3a51e688e41) (members) and run unsure drafts through the [Comms checker prompt](https://app.notion.com/p/pauseai-global/Comms-checker-prompt-3ac81143917680cc8449f53877606b3c) (members). Images come from the [Collateral maker](https://pauseai.info/tools/collateral): its Event layout makes an on-brand post, Luma cover or flyer from a form.",
           "Post twice, two weeks before and the day before, and remind sign-ups the day before; many forget."
         ],
         "children": [
@@ -158,7 +158,7 @@
           {
             "id": "promote-the-event--post-on-instagram",
             "title": "Post on Instagram",
-            "hint": "Make the image with the [Collateral maker](https://pauseai.uk/tools/collateral): Event layout, your details, download; post two weeks before and again the day before.",
+            "hint": "Make the image with the [Collateral maker](https://pauseai.info/tools/collateral): Event layout, your details, download; post two weeks before and again the day before.",
             "children": []
           },
           {
@@ -176,7 +176,7 @@
           {
             "id": "promote-the-event--optional-print-flyers",
             "title": "(optional) Print flyers",
-            "hint": "[Collateral maker](https://pauseai.uk/tools/collateral), A6 or A5 format, about 100 copies; hand out on campus or downtown a week before; see the [Flyering guide](https://pauseai.info/flyering).",
+            "hint": "[Collateral maker](https://pauseai.info/tools/collateral), A6 or A5 format, about 100 copies; hand out on campus or downtown a week before; see the [Flyering guide](https://pauseai.info/flyering).",
             "children": []
           },
           {
@@ -373,7 +373,7 @@
       "entries": [
         {
           "title": "Collateral maker",
-          "url": "https://pauseai.uk/tools/collateral",
+          "url": "https://pauseai.info/tools/collateral",
           "status": null,
           "description": "on-brand posts, event covers, flyers and posters from a form; nothing leaves your browser",
           "members": false,
