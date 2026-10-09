@@ -8,8 +8,8 @@ Live: https://pauseai.github.io/volunteer-portal-prototype/
 
 ## Demo state and reset
 
-State lives in the browser's `localStorage` (key `pauseai-volunteer-portal-prototype:v1`); a first visit starts as a
-new organizer (Sam Rivera) with no projects. A project is owned by whoever creates it; its sub-items start without an
+State lives in the browser's `localStorage` (key `pauseai-volunteer-portal-prototype:v3`, bumped whenever the stored
+shape changes); a first visit starts as a new organizer (Peter Pauser) with no projects. A project is owned by whoever creates it; its sub-items start without an
 owner. Done projects and done sub-items are hidden under "Past projects" / "Done steps" until opened. Two ways to
 reset it:
 
@@ -24,7 +24,6 @@ For scripted walkthroughs and recordings (`page.get_by_test_id(...)` in Playwrig
 | Where | `data-testid` |
 |---|---|
 | Top bar tabs | `tab-projects`, `tab-resources`, `tab-teams` |
-| Banner, its close button | `banner`, `banner-dismiss` |
 | My projects: new-project button, curated start card and its link, project cards, past-projects toggle | `new-project`, `start-card`, `start-info-event`, `project-card`, `past-projects-toggle` |
 | New project: title, template cards, browse toggle, library rows, create | `project-title`, `template-empty`, `template-info-event`, `template-protest`, `browse-templates`, `library-<id>`, `create-project` |
 | Item page: title, done, owner, due, from-template link | `item-title`, `done-checkbox`, `owner-select`, `due-input`, `from-template` |
@@ -44,7 +43,8 @@ Date fields follow the browser's locale; for dd/mm/yyyy in a recording, launch C
 
 The Info event template, the two coming-soon descriptions and the resource list are transcribed word for word from the
 vault note "Info event template and resources for {create volunteer portal prototype prototype for Matilda funding
-pitch}". After editing the note, regenerate the data file:
+pitch}" (its structure: the docstring of `scripts/import_content.py`). Guidance is plain text, top to bottom; each
+sub-project's one line shows under its title in the list of steps. After editing the note, regenerate the data file:
 
 ```sh
 python3 scripts/import_content.py "<path to the note>.md"   # writes src/content/content.json
