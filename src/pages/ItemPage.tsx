@@ -1,7 +1,7 @@
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
 import { useLayoutEffect, useRef, useState, type FormEvent } from 'react'
 import { GuidanceBlock } from '../components/Guidance'
-import { Breadcrumbs, Button, Checkbox, cn, Disclosure } from '../components/ui'
+import { Breadcrumbs, Button, capitalize, Checkbox, cn, Disclosure } from '../components/ui'
 import { infoEvent } from '../content/content'
 import { members, user } from '../data/seed'
 import { blankItem, findPath, formatDate, progress, removeItem, updateItem, type Item } from '../items'
@@ -237,6 +237,7 @@ function SubItemRow({ item }: { item: Item }) {
         )}
       >
         {item.title}
+        {item.summary && <span className="block text-small text-muted-foreground">{capitalize(item.summary)}</span>}
       </a>
       <ChevronRight aria-hidden className="size-5 shrink-0 text-muted-foreground sm:order-last" strokeWidth={1.5} />
       <span className="flex w-full items-center gap-4 pl-[38px] text-small text-muted-foreground sm:w-auto sm:pl-0">

@@ -8,6 +8,7 @@ export type Item = {
   due: string | null // yyyy-mm-dd
   done: boolean
   guidance?: Guidance
+  summary?: string
   hint?: string
   template?: string // the template a project was created from (Spec 19)
   children: Item[]
@@ -22,6 +23,7 @@ export function instantiate(node: TemplateNode): Item {
   return {
     ...blankItem(node.title),
     ...(node.guidance ? { guidance: structuredClone(node.guidance) } : {}),
+    ...(node.summary ? { summary: node.summary } : {}),
     ...(node.hint ? { hint: node.hint } : {}),
     children: node.children.map(instantiate),
   }

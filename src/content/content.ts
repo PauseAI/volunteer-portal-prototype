@@ -2,10 +2,8 @@
 // {create volunteer portal prototype prototype for Matilda funding pitch}" by scripts/import_content.py.
 import data from './content.json'
 
-export type ResourceLink = { title: string; url: string; members: boolean }
-
-/** A guidance block: the four fields of "How to do this well". A task's guidance is its hint line instead. */
-export type Guidance = { goal: string; how: string[]; takeCareOf: string[]; resources: ResourceLink[] }
+/** "How to do this well": plain paragraphs, top to bottom ("Goal: …" first; markdown links inline). A task's guidance is its hint line instead. */
+export type Guidance = string[]
 
 /** One kind of item, nested freely: the template is a tree of these. */
 export type TemplateNode = {
@@ -13,6 +11,7 @@ export type TemplateNode = {
   title: string
   card?: string | null
   guidance?: Guidance
+  summary?: string // a sub-project's one line, shown under its title in its parent's list of steps
   hint?: string
   children: TemplateNode[]
 }

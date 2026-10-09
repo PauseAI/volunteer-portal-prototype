@@ -1,7 +1,6 @@
 import { ChevronDown } from 'lucide-react'
-import type { ReactNode } from 'react'
 import type { Guidance } from '../content/content'
-import { cn, ExternalLink, Inline } from './ui'
+import { cn, Inline } from './ui'
 
 type Props = {
   guidance?: Guidance
@@ -11,9 +10,13 @@ type Props = {
   onToggle?: () => void
 }
 
-/** "How to do this well": the template's guidance for one item — Goal, How, Take care of, Resources; for a task its hint line. */
+/**
+ * "How to do this well": the template's guidance for one item as plain text, top to bottom — the goal, what matters,
+ * resources; for a task its hint line. No step list of its own: the list of steps below it is the step list.
+ */
 export function GuidanceBlock({ guidance, hint, collapsed = false, onToggle }: Props) {
   const open = !onToggle || !collapsed
+  const paragraphs = guidance ?? (hint ? [hint] : [])
   return (
     <section data-testid="guidance" className="rounded-card border border-border bg-surface">
       <h2 className="text-h3">
@@ -36,68 +39,23 @@ export function GuidanceBlock({ guidance, hint, collapsed = false, onToggle }: P
         )}
       </h2>
       {open && (
-        <div className="px-6 pb-6">
-          {guidance ? <GuidanceFields guidance={guidance} /> : hint ? <p className="max-w-prose text-lead"><Inline text={hint} /></p> : null}
+        <div className="max-w-prose space-y-3 px-6 pb-6">
+          {paragraphs.map((text, i) => (
+            <Paragraph key={i} text={text} />
+          ))}
         </div>
       )}
     </section>
   )
 }
 
-function Label({ children }: { children: ReactNode }) {
-  return <p className="mb-2 font-semibold text-foreground">{children}</p>
-}
-
-function GuidanceFields({ guidance }: { guidance: Guidance }) {
+/** One paragraph of the note; a leading "Goal:" or "Resources:" in semibold. */
+function Paragraph({ text }: { text: string }) {
+  const label = /^(Goal|Resources):\s*/.exec(text)
   return (
-    <div className="grid gap-x-10 gap-y-6 md:grid-cols-[3fr_2fr]">
-      <div className="md:col-span-2">
-        <Label>Goal</Label>
-        <p className="max-w-prose text-lead">
-          <Inline text={guidance.goal} />
-        </p>
-      </div>
-      <div>
-        <Label>How</Label>
-        <ol className="space-y-2.5">
-          {guidance.how.map((step, i) => (
-            <li key={i} className="flex gap-3">
-              <span className="w-4 shrink-0 font-semibold text-muted-foreground">{i + 1}</span>
-              <span>
-                <Inline text={step} />
-              </span>
-            </li>
-          ))}
-        </ol>
-      </div>
-      <div className="space-y-6">
-        <div>
-          <Label>Take care of</Label>
-          <ul className="space-y-2.5">
-            {guidance.takeCareOf.map((point, i) => (
-              <li key={i} className="flex gap-3">
-                <span aria-hidden className="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-foreground" />
-                <span>
-                  <Inline text={point} />
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        {guidance.resources.length > 0 && (
-          <div>
-            <Label>Resources</Label>
-            <ul className="space-y-1.5">
-              {guidance.resources.map((link) => (
-                <li key={link.title}>
-                  <ExternalLink href={link.url}>{link.title}</ExternalLink>
-                  {link.members && <span className="text-muted-foreground"> (members)</span>}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    </div>
+    <p>
+      {label && <span className="font-semibold">{label[1]}: </span>}
+      <Inline text={label ? text.slice(label[0].length) : text} />
+    </p>
   )
 }

@@ -32,11 +32,10 @@ with sync_playwright() as p:
 
     tid = page.get_by_test_id
 
-    # cold open: banner + empty state
+    # cold open: the empty state
     page.goto(BASE + "?reset=1")
     page.wait_for_load_state("networkidle")
     page.evaluate("document.fonts.ready")
-    expect(tid("banner")).to_be_visible()
     expect(tid("start-card")).to_be_visible()
     shot("empty-state")
 
@@ -59,9 +58,11 @@ with sync_playwright() as p:
     expect(page.get_by_test_id("item-title")).to_have_value(TITLE)
     expect(tid("step")).to_have_count(6)
     expect(tid("from-template")).to_be_visible()
-    expect(tid("owner-select")).to_have_value("sam")  # whoever creates a project owns it
+    expect(tid("owner-select")).to_have_value("peter")  # whoever creates a project owns it
     expect(tid("step-owner")).to_have_count(6)  # sub-items start without an owner
     expect(tid("step-owner").first).to_have_value("")
+    expect(tid("guidance")).to_contain_text("Goal:")
+    expect(tid("step").first).to_contain_text("Goal, format, date, speaker")  # each part's one line under its title
     shot("project")
     shot("project-full", full=True)
     tid("guidance-toggle").click()
@@ -70,12 +71,12 @@ with sync_playwright() as p:
     expect(tid("guidance-toggle")).to_have_attribute("aria-expanded", "false")  # remembered per item
     shot("project-guidance-collapsed")
     # the owner inline in the list of sub-items
-    tid("step").filter(has_text="Location").get_by_test_id("step-owner").select_option(label="Priya Nair")
-    expect(tid("step").filter(has_text="Location").get_by_test_id("step-owner")).to_have_value("priya")
+    tid("step").filter(has_text="Location").get_by_test_id("step-owner").select_option(label="Hannah Halt")
+    expect(tid("step").filter(has_text="Location").get_by_test_id("step-owner")).to_have_value("hannah")
     expect(tid("item-title")).to_have_value(TITLE)  # changing the owner did not open the row
     shot("project-inline-owner")
     tid("step-link").filter(has_text="Location").click()
-    expect(tid("owner-select")).to_have_value("priya")  # the same field as on the item's own page
+    expect(tid("owner-select")).to_have_value("hannah")  # the same field as on the item's own page
     page.go_back()
     expect(tid("step")).to_have_count(6)
 
@@ -88,14 +89,14 @@ with sync_playwright() as p:
     tid("step-link").filter(has_text="Post on Instagram").click()
     expect(tid("guidance")).to_contain_text("Collateral maker")
     shot("task")
-    tid("owner-select").select_option(label="Priya Nair")
+    tid("owner-select").select_option(label="Hannah Halt")
     tid("due-input").fill("2026-11-12")
     tid("done-checkbox").click()
     expect(tid("done-checkbox")).to_have_attribute("aria-checked", "true")
     shot("task-owner-due-done")
     # a task takes sub-items too
     tid("add-item-input").click()
-    page.keyboard.type("Ask Amara for a photo of the venue")
+    page.keyboard.type("Ask Wendy for a photo of the venue")
     tid("add-item").click()
     expect(tid("step")).to_have_count(1)
 
@@ -165,14 +166,11 @@ with sync_playwright() as p:
     expect(tid("apply-social-media")).to_have_text("Applied")
     shot("teams-filtered-applied")
 
-    # My projects with the project, banner dismissed
+    # My projects with the project
     tid("tab-projects").click()
     expect(tid("project-card")).to_have_count(1)
     expect(tid("project-card")).to_contain_text("Owner: you")
     shot("my-projects")
-    tid("banner-dismiss").click()
-    expect(tid("banner")).to_have_count(0)
-    shot("my-projects-no-banner")
 
     # a done project moves to "Past projects", hidden by default
     tid("project-card").click()
@@ -188,7 +186,6 @@ with sync_playwright() as p:
     tid("reset-demo").click()
     page.wait_for_load_state("networkidle")
     expect(tid("start-card")).to_be_visible()
-    expect(tid("banner")).to_be_visible()
     shot("after-reset")
 
     browser.close()

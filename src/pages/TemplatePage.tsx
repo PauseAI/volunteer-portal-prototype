@@ -1,6 +1,6 @@
 import { ChevronRight } from 'lucide-react'
 import { GuidanceBlock } from '../components/Guidance'
-import { Breadcrumbs, buttonClass, Inline } from '../components/ui'
+import { Breadcrumbs, buttonClass, capitalize, Inline } from '../components/ui'
 import { infoEvent } from '../content/content'
 import { href } from '../router'
 
@@ -66,7 +66,10 @@ export function TemplatePage({ path }: { path: string[] }) {
                   data-testid="resource-step"
                   className="flex min-h-14 items-center gap-4 px-5 py-2 transition-colors hover:bg-hover focus-visible:outline-offset-[-3px]"
                 >
-                  <span className="flex-1">{child.title}</span>
+                  <span className="flex-1">
+                    {child.title}
+                    {child.summary && <span className="block text-small text-muted-foreground">{capitalize(child.summary)}</span>}
+                  </span>
                   <span className="text-small text-muted-foreground">{child.children.length} steps</span>
                   <ChevronRight aria-hidden className="size-5 text-muted-foreground" strokeWidth={1.5} />
                 </a>

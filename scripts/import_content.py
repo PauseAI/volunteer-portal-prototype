@@ -2,12 +2,18 @@
 """Transcribe the content note into src/content/content.json, word for word.
 
 The note is "Info event template and resources for {create volunteer portal prototype prototype for
-Matilda funding pitch}.md" in the PauseAI Global vault. Its structure is fixed:
+Matilda funding pitch}.md" in the PauseAI Global vault. Its structure is fixed (the note states it in its
+"Structure: …" line, which is skipped):
 
-  # Info event            card line, then a guidance block (**Goal**, **How**, **Take care of**, **Resources**)
-  ## <sub-project>        guidance block, then ### Tasks: "1. Title — hint"
+  # Info event            card line; guidance: plain paragraphs, one per line ("Goal: …" first, links inline or in a
+                          last "Resources: …" line); ### Sub-projects: "1. Name — one line", one per ## section below,
+                          same order and wording (checked)
+  ## <sub-project>        guidance paragraphs the same way, then ### Tasks: "1. Title — hint"
   # Coming soon           ## Protest / ## Coalition building: one paragraph each
   # Resources             ## <group>: "1. Title — URL — description — members"
+
+Output: the guidance is a list of paragraphs; a sub-project's one line becomes its "summary" (shown under its title in
+the parts list); a task's hint is its guidance.
 
 Usage: python3 scripts/import_content.py <note.md> [out.json]
 """
@@ -16,15 +22,8 @@ import re
 import sys
 from pathlib import Path
 
-LINK = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)( \(members\))?")
-
-
 def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
-
-
-def parse_resources_field(text: str) -> list[dict]:
-    return [{"title": m[1], "url": m[2], "members": bool(m[3])} for m in LINK.finditer(text)]
 
 
 def parse(note: str) -> dict:
@@ -35,7 +34,8 @@ def parse(note: str) -> dict:
 
     template: dict | None = None
     node: dict | None = None  # the node whose guidance is being read
-    field: str | None = None  # "how" | "takeCareOf" | "tasks"
+    field: str | None = None  # "subprojects" | "tasks"
+    summaries: list[tuple[str, str]] = []  # the template's ### Sub-projects list
     section: str | None = None  # "template" | "soon" | "resources"
     coming_soon: list[dict] = []
     groups: list[dict] = []
@@ -52,39 +52,34 @@ def parse(note: str) -> dict:
                 section = "resources"
             else:
                 section = "template"
-                template = node = {"id": slug(title), "title": title, "card": None, "guidance": new_guidance(), "children": []}
+                template = node = {"id": slug(title), "title": title, "card": None, "guidance": [], "children": []}
             field = None
             continue
         if section == "template":
             assert template is not None and node is not None
             if line.startswith("## "):
                 title = line[3:].strip()
-                node = {"id": slug(title), "title": title, "guidance": new_guidance(), "children": []}
+                node = {"id": slug(title), "title": title, "guidance": [], "children": []}
                 template["children"].append(node)
                 field = None
+            elif line.startswith("### Sub-projects") and node is template:
+                field = "subprojects"
             elif line.startswith("### Tasks"):
                 field = "tasks"
-            elif line.startswith("**Goal**"):
-                node["guidance"]["goal"] = line[len("**Goal**") :].strip()
-                field = None
-            elif line.startswith("**How**"):
-                field = "how"
-            elif line.startswith("**Take care of**"):
-                field = "takeCareOf"
-            elif line.startswith("**Resources**"):
-                node["guidance"]["resources"] = parse_resources_field(line)
-                field = None
-            elif field == "how" and re.match(r"\d+\. ", line):
-                node["guidance"]["how"].append(re.sub(r"^\d+\. ", "", line))
-            elif field == "takeCareOf" and line.startswith("- "):
-                node["guidance"]["takeCareOf"].append(line[2:])
+            elif field == "subprojects" and re.match(r"\d+\. ", line):
+                name, summary = re.sub(r"^\d+\. ", "", line).split(" — ", 1)
+                summaries.append((name.strip(), summary.strip()))
             elif field == "tasks" and re.match(r"\d+\. ", line):
                 title, hint = re.sub(r"^\d+\. ", "", line).split(" — ", 1)  # hints may contain " — " themselves
                 node["children"].append({"id": f"{node['id']}--{slug(title)}", "title": title, "hint": hint, "children": []})
+            elif field is not None:
+                raise ValueError(f"unexpected line in a ### list: {line!r}")
+            elif node is template and line.startswith("Structure: "):
+                continue  # the note's description of this format
             elif node is template and template["card"] is None:
                 template["card"] = line
             else:
-                raise ValueError(f"unexpected line in template: {line!r}")
+                node["guidance"].append(line.strip())
         elif section == "soon":
             if line.startswith("## "):
                 title = line[3:].strip()
@@ -117,11 +112,12 @@ def parse(note: str) -> dict:
                 raise ValueError(f"unexpected line in resources: {line!r}")
 
     assert template is not None
+    names = [child["title"] for child in template["children"]]
+    if [name for name, _ in summaries] != names:
+        raise ValueError(f"### Sub-projects {[n for n, _ in summaries]} differs from the ## sections {names}")
+    for child, (_, summary) in zip(template["children"], summaries):
+        child["summary"] = summary
     return {"template": template, "comingSoon": coming_soon, "resourceGroups": groups}
-
-
-def new_guidance() -> dict:
-    return {"goal": "", "how": [], "takeCareOf": [], "resources": []}
 
 
 def main() -> None:

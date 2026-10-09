@@ -10,7 +10,7 @@ export type State = {
   collapsed: Record<string, boolean> // guidance blocks collapsed, per item
 }
 
-export const STORAGE_KEY = 'pauseai-volunteer-portal-prototype:v2' // bumped when the stored shape changes: old state is dropped
+export const STORAGE_KEY = 'pauseai-volunteer-portal-prototype:v3' // bumped when the stored shape changes: old state is dropped
 
 const seed = (): State => ({ projects: [], applied: [], collapsed: {} })
 
