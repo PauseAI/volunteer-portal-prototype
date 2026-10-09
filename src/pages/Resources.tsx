@@ -1,9 +1,7 @@
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { capitalize, cn, Tag } from '../components/ui'
-import { comingSoon, infoEvent, resourceGroups, type ResourceEntry } from '../content/content'
+import { infoEvent, resourceGroups, type ResourceEntry } from '../content/content'
 import { href } from '../router'
-
-const soon = new Set(comingSoon.map((t) => t.id))
 
 function source(url: string): string {
   const host = new URL(url).hostname
@@ -36,7 +34,7 @@ export function Resources() {
 
 function ResourceCard({ entry }: { entry: ResourceEntry }) {
   const isBuilt = entry.id === infoEvent.id
-  const isSoon = soon.has(entry.id)
+  const isSoon = entry.status === 'coming soon'
   const link = isBuilt ? href.template(infoEvent.id) : entry.url
   const body = (
     <>

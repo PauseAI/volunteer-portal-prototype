@@ -27,7 +27,7 @@ export function NewProject({ template }: { template: string | null }) {
   }
 
   return (
-    <div className="max-w-item">
+    <div>
       <Breadcrumbs trail={[{ label: 'My projects', href: href.projects }, { label: 'New project' }]} />
       <h1 className="text-h1">New project</h1>
       <form onSubmit={create} className="mt-8">
@@ -44,7 +44,7 @@ export function NewProject({ template }: { template: string | null }) {
           className="h-12 w-full max-w-[560px] rounded-control border border-input bg-surface px-4 text-lead"
         />
 
-        <fieldset className="mt-10">
+        <fieldset className="mt-8">
           <legend className="mb-1 font-semibold">Start from a template</legend>
           <p className="mb-4 text-small text-muted-foreground">
             A template fills in the steps, with guidance on how to do each one well.
@@ -91,7 +91,7 @@ export function NewProject({ template }: { template: string | null }) {
           )}
         </fieldset>
 
-        <div className="mt-10 flex items-center gap-6">
+        <div className="mt-8 flex items-center gap-6">
           <Button type="submit" data-testid="create-project">
             Create project
           </Button>
@@ -124,7 +124,7 @@ function TemplateCard({ id, title, selected, onSelect, disabled, children }: Tem
       data-testid={`template-${id}`}
       onClick={() => !disabled && onSelect?.(id)}
       className={cn(
-        'relative flex h-full flex-col rounded-card border-[1.5px] bg-surface p-5 text-left transition-colors',
+        'relative flex h-full flex-col rounded-card border bg-surface p-5 text-left transition-colors',
         isSelected ? 'border-foreground' : 'border-border',
         disabled ? 'cursor-not-allowed' : 'hover:border-input',
       )}
@@ -138,7 +138,8 @@ function TemplateCard({ id, title, selected, onSelect, disabled, children }: Tem
         )}
         {disabled && <Tag>Coming soon</Tag>}
       </span>
-      <span className={cn('mt-2 block text-small text-muted-foreground', disabled && 'opacity-55')}>{children}</span>
+      {/* a coming-soon description is clamped here; the full text is under Browse templates */}
+      <span className={cn('mt-2 text-small text-muted-foreground', disabled ? 'line-clamp-3 opacity-55' : 'block')}>{children}</span>
     </button>
   )
 }

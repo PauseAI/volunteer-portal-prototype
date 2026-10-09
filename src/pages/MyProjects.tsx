@@ -11,7 +11,7 @@ export function MyProjects() {
   const { projects } = useStore()
   return (
     <>
-      <div className="flex items-end justify-between gap-6">
+      <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
           <h1 className="text-h1">My projects</h1>
           <p className="mt-2 text-lead text-muted-foreground">What you and your group are working on.</p>

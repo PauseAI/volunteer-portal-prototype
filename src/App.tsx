@@ -38,7 +38,7 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <TopBar tab={tab} />
-      <main className="mx-auto max-w-page px-10 pt-8 pb-28">
+      <main className="mx-auto max-w-page px-5 pt-8 pb-28 md:px-10">
         {!bannerDismissed && <Banner />}
         {route.name === 'projects' && <MyProjects />}
         {route.name === 'new' && <NewProject key={hash} template={route.template} />}
@@ -62,11 +62,11 @@ export default function App() {
 function TopBar({ tab }: { tab: Tab }) {
   return (
     <header className="border-b border-border">
-      <div className="mx-auto flex h-18 max-w-page items-center gap-14 px-10">
+      <div className="mx-auto flex h-18 max-w-page items-center gap-4 px-5 md:gap-14 md:px-10">
         <a href={href.projects} className="shrink-0 rounded-control">
-          <img src={logo} alt="PauseAI" className="h-8 w-auto" />
+          <img src={logo} alt="PauseAI" className="h-6 w-auto md:h-8" />
         </a>
-        <nav aria-label="Main" className="flex h-full items-stretch gap-9">
+        <nav aria-label="Main" className="flex h-full items-stretch gap-4 text-small whitespace-nowrap md:gap-9 md:text-body">
           {tabs.map((t) => (
             <a
               key={t.id}
@@ -84,7 +84,7 @@ function TopBar({ tab }: { tab: Tab }) {
             </a>
           ))}
         </nav>
-        <p className="ml-auto text-small text-muted-foreground">
+        <p className="ml-auto hidden text-small text-muted-foreground lg:block">
           {user.name} · PauseAI Pausetown
         </p>
       </div>

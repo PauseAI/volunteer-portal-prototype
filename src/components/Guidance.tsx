@@ -32,7 +32,7 @@ export function GuidanceBlock({ guidance, hint, collapsed = false, onToggle }: P
             </span>
           </button>
         ) : (
-          <span className="block px-6 pt-5 pb-1">How to do this well</span>
+          <span className="block px-6 py-4">How to do this well</span>
         )}
       </h2>
       {open && (
