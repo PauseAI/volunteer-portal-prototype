@@ -74,7 +74,7 @@ function ProjectCard({ project }: { project: Item }) {
       <div>
         <h2 className="text-h3">{project.title}</h2>
         <p className="mt-1 text-small text-muted-foreground">
-          {project.template ? `From template: ${infoEvent.title}` : 'Own project'}
+          {project.template ? `From template: ${infoEvent.title}` : 'Blank project'}
           {project.children.length > 0 && ` · ${project.children.length} steps`}
         </p>
       </div>

@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { GuidanceBlock } from '../components/Guidance'
 import { Breadcrumbs, Button, Checkbox, cn } from '../components/ui'
 import { infoEvent } from '../content/content'
@@ -96,10 +96,9 @@ export function ItemPage({ id }: { id: string }) {
   )
 }
 
-/** The title, editable in place. */
+/** The title, editable in place (the page remounts per item, so the draft starts from the stored title). */
 function TitleField({ item }: { item: Item }) {
   const [draft, setDraft] = useState(item.title)
-  useEffect(() => setDraft(item.title), [item.title])
   const commit = () => {
     const title = draft.trim()
     if (title && title !== item.title) update(item.id, (it) => ({ ...it, title }))
