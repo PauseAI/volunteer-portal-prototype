@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import logo from './assets/pauseai-logo.svg'
 import { cn } from './components/ui'
-import { user } from './data/seed'
+import { chapter, user } from './data/seed'
 import { ItemPage } from './pages/ItemPage'
 import { MyProjects } from './pages/MyProjects'
 import { NewProject } from './pages/NewProject'
@@ -81,8 +81,8 @@ function TopBar({ tab }: { tab: Tab }) {
             </a>
           ))}
         </nav>
-        <p className="ml-auto hidden text-small text-muted-foreground lg:block">
-          {user.name} · PauseAI Pausetown
+        <p data-testid="top-bar-user" className="ml-auto hidden text-small text-muted-foreground lg:block">
+          {user.name} · {chapter}
         </p>
       </div>
     </header>

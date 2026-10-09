@@ -23,7 +23,7 @@ For scripted walkthroughs and recordings (`page.get_by_test_id(...)` in Playwrig
 
 | Where | `data-testid` |
 |---|---|
-| Top bar tabs | `tab-projects`, `tab-resources`, `tab-teams` |
+| Top bar: tabs, user line (name · chapter) | `tab-projects`, `tab-resources`, `tab-teams`, `top-bar-user` |
 | My projects: new-project button, curated start card and its link, project cards, past-projects toggle | `new-project`, `start-card`, `start-info-event`, `project-card`, `past-projects-toggle` |
 | New project: title, template cards, browse toggle, library rows, create | `project-title`, `template-empty`, `template-info-event`, `template-protest`, `browse-templates`, `library-<id>`, `create-project` |
 | Item page: title, done, owner, due, from-template link | `item-title`, `done-checkbox`, `owner-select`, `due-input`, `from-template` |

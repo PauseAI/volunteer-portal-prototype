@@ -1,4 +1,4 @@
-// Fictional demo data (Spec 6): local group PauseAI Pausetown, national chapter PauseAI Pauseworld.
+// Fictional demo data (Spec 6): local group PauseAI Pausetown, national chapter PauseAI Pauseland.
 
 export type Member = { id: string; name: string }
 
@@ -15,7 +15,7 @@ export const members: Member[] = [
 ]
 
 export const myGroup = 'pausetown'
-export const chapter = 'PauseAI Pauseworld'
+export const chapter = 'PauseAI Pauseland'
 
 export type LocalGroup = { id: string; name: string; city: string; members: number }
 
@@ -31,9 +31,9 @@ export const localGroups: LocalGroup[] = [
 export type Team = { id: string; name: string; description: string }
 
 export const nationalTeams: Team[] = [
-  { id: 'social-media', name: 'Social media team', description: "Adapts Global's posts for Pauseworld and runs the chapter's channels." },
+  { id: 'social-media', name: 'Social media team', description: "Adapts Global's posts for Pauseland and runs the chapter's channels." },
   { id: 'outreach', name: 'Outreach team', description: 'Writes to journalists, influencers and organizations through the outreach pipeline.' },
-  { id: 'policy', name: 'Policy team', description: "Adapts Global's policy proposals for Pauseworld and briefs politicians." },
+  { id: 'policy', name: 'Policy team', description: "Adapts Global's policy proposals for Pauseland and briefs politicians." },
   { id: 'events', name: 'Events team', description: 'Plans national protests and helps local groups run theirs.' },
 ]
 

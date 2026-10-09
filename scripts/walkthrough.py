@@ -37,6 +37,7 @@ with sync_playwright() as p:
     page.wait_for_load_state("networkidle")
     page.evaluate("document.fonts.ready")
     expect(tid("start-card")).to_be_visible()
+    expect(tid("top-bar-user")).to_have_text("Peter Pauser · PauseAI Pauseland")  # the chapter, not the local group
     shot("empty-state")
 
     # New project -> title -> template
