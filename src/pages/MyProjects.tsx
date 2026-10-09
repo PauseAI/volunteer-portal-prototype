@@ -59,20 +59,32 @@ function ProjectGrid({ projects, className }: { projects: Item[]; className?: st
   )
 }
 
-/** The curated start (Spec 11): one line and the link, nothing else (Simon, 2026-10-09). */
+/**
+ * The curated start (Spec 11): one line and the link, nothing else (Simon, 2026-10-09). Below it, for whoever opens
+ * the link cold, one muted line with the demo video (public/demo.mp4, recorded by video/record.py).
+ */
 function StartCard() {
   return (
-    <Card data-testid="start-card" className="mt-10 p-8">
-      <h2 className="text-h2">New local group? Run your first info event</h2>
-      <a
-        href={href.newProject(infoEvent.id)}
-        data-testid="start-info-event"
-        className={cn(accentLink, 'mt-4 inline-flex items-center gap-1.5 font-semibold')}
-      >
-        Start from the Info event template
-        <ArrowRight aria-hidden className="size-4" strokeWidth={2} />
-      </a>
-    </Card>
+    <>
+      <Card data-testid="start-card" className="mt-10 p-8">
+        <h2 className="text-h2">New local group? Run your first info event</h2>
+        <a
+          href={href.newProject(infoEvent.id)}
+          data-testid="start-info-event"
+          className={cn(accentLink, 'mt-4 inline-flex items-center gap-1.5 font-semibold')}
+        >
+          Start from the Info event template
+          <ArrowRight aria-hidden className="size-4" strokeWidth={2} />
+        </a>
+      </Card>
+      <p className="mt-4 text-small text-muted-foreground">
+        Prototype with fictional data: click around, or{' '}
+        <a href="demo.mp4" data-testid="demo-video" className="underline underline-offset-4 hover:text-foreground">
+          watch the 2-minute demo
+        </a>
+        .
+      </p>
+    </>
   )
 }
 

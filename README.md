@@ -36,6 +36,9 @@ For scripted walkthroughs and recordings (`page.get_by_test_id(...)` in Playwrig
 | Reset | `reset-demo` |
 
 `scripts/walkthrough.py [url] [out_dir]` drives the whole new-organizer flow at 1440×900 and screenshots every screen.
+`video/record.py [url]` records the 2-minute demo (`public/demo.mp4`, served at
+https://pauseai.github.io/volunteer-portal-prototype/demo.mp4): the shots of the vault's script note, with a synthetic
+cursor and a caption bar, at 1600×900; needs ffmpeg. My projects links the video below the start card (`demo-video`).
 Date fields follow the browser's locale; for dd/mm/yyyy in a recording, launch Chromium with the environment variables
 `LANG=en_GB.UTF-8`, `LANGUAGE=en_GB`, `LC_ALL=en_GB.UTF-8` (Playwright's `locale="en-GB"` alone does not change them).
 
