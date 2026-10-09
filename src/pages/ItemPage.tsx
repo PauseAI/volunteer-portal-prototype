@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronRight, Plus, Trash2 } from 'lucide-react'
-import { useState, type FormEvent } from 'react'
+import { useLayoutEffect, useRef, useState, type FormEvent } from 'react'
 import { GuidanceBlock } from '../components/Guidance'
 import { Breadcrumbs, Button, Checkbox, cn } from '../components/ui'
 import { infoEvent } from '../content/content'
@@ -42,22 +42,7 @@ export function ItemPage({ id }: { id: string }) {
         </label>
         <label className="flex items-center gap-2.5">
           <span className="text-muted-foreground">Owner</span>
-          <span className="relative">
-            <select
-              data-testid="owner-select"
-              value={item.owner ?? ''}
-              onChange={(e) => update(item.id, (it) => ({ ...it, owner: e.target.value || null }))}
-              className="h-10 appearance-none rounded-control border border-input bg-surface pr-10 pl-3"
-            >
-              <option value="">No owner</option>
-              {members.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {m.id === user.id ? `${m.name} (you)` : m.name}
-                </option>
-              ))}
-            </select>
-            <ChevronDown aria-hidden strokeWidth={1.5} className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2" />
-          </span>
+          <OwnerSelect item={item} />
         </label>
         <label className="flex items-center gap-2.5">
           <span className="text-muted-foreground">Due</span>
@@ -96,9 +81,24 @@ export function ItemPage({ id }: { id: string }) {
   )
 }
 
-/** The title, editable in place (the page remounts per item, so the draft starts from the stored title). */
+/**
+ * The title, editable in place (the page remounts per item, so the draft starts from the stored title).
+ * A one-row textarea that grows, so a long title wraps like a heading instead of being cut off.
+ */
 function TitleField({ item }: { item: Item }) {
   const [draft, setDraft] = useState(item.title)
+  const ref = useRef<HTMLTextAreaElement>(null)
+  useLayoutEffect(() => {
+    const fit = () => {
+      const el = ref.current
+      if (!el) return
+      el.style.height = 'auto'
+      el.style.height = `${el.scrollHeight}px`
+    }
+    fit()
+    window.addEventListener('resize', fit)
+    return () => window.removeEventListener('resize', fit)
+  }, [draft])
   const commit = () => {
     const title = draft.trim()
     if (title && title !== item.title) update(item.id, (it) => ({ ...it, title }))
@@ -106,20 +106,65 @@ function TitleField({ item }: { item: Item }) {
   }
   return (
     <h1 className="text-h1">
-      <input
+      <textarea
+        ref={ref}
+        rows={1}
         aria-label="Title"
         data-testid="item-title"
         value={draft}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={(e) => setDraft(e.target.value.replace(/\s*\n\s*/g, ' '))}
         onBlur={commit}
-        onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            e.currentTarget.blur()
+          }
+        }}
         className={cn(
-          '-mx-2 w-[calc(100%+16px)] rounded-control border border-transparent bg-transparent px-2 py-0.5 text-heading transition-colors',
+          '-mx-2 block w-[calc(100%+16px)] resize-none overflow-hidden rounded-control border border-transparent bg-transparent px-2 py-0.5 text-heading transition-colors',
           'hover:border-border focus:border-input focus:bg-surface',
           item.done && 'text-muted-foreground',
         )}
       />
     </h1>
+  )
+}
+
+/**
+ * Owner (Spec 16): a dropdown of the group's mock members — next to the title on the item's own page, and inline in
+ * its parent's list (Simon, 2026-10-09), so a whole project can be delegated from one page.
+ */
+function OwnerSelect({ item, inline = false }: { item: Item; inline?: boolean }) {
+  return (
+    <span className={cn('relative', inline && 'z-10 shrink-0')}>
+      <select
+        data-testid={inline ? 'step-owner' : 'owner-select'}
+        aria-label={inline ? `Owner of ${item.title}` : undefined}
+        value={item.owner ?? ''}
+        onChange={(e) => update(item.id, (it) => ({ ...it, owner: e.target.value || null }))}
+        className={cn(
+          'appearance-none rounded-control border pl-3',
+          inline
+            ? 'h-9 w-40 border-border bg-transparent pr-8 text-small hover:border-input sm:w-44'
+            : 'h-10 border-input bg-surface pr-9',
+          item.owner ? 'text-foreground' : 'text-muted-foreground',
+        )}
+      >
+        <option value="" className="text-foreground">
+          No owner
+        </option>
+        {members.map((m) => (
+          <option key={m.id} value={m.id} className="text-foreground">
+            {m.id === user.id ? `${m.name} (you)` : m.name}
+          </option>
+        ))}
+      </select>
+      <ChevronDown
+        aria-hidden
+        strokeWidth={1.5}
+        className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-muted-foreground"
+      />
+    </span>
   )
 }
 
@@ -147,11 +192,14 @@ function SubItems({ item }: { item: Item }) {
   )
 }
 
+/** A sub-item in its parent's list; on narrow screens its count, due date, remove button and owner take a second line. */
 function SubItemRow({ item }: { item: Item }) {
   const { done, total } = progress(item)
-  const owner = members.find((m) => m.id === item.owner)
   return (
-    <li data-testid="step" className="group relative flex min-h-14 items-center gap-4 px-5 py-2 transition-colors hover:bg-hover">
+    <li
+      data-testid="step"
+      className="group relative flex min-h-14 flex-wrap items-center gap-x-4 gap-y-1 px-5 py-2 transition-colors hover:bg-hover"
+    >
       <Checkbox
         checked={item.done}
         onChange={(d) => update(item.id, (it) => ({ ...it, done: d }))}
@@ -163,58 +211,63 @@ function SubItemRow({ item }: { item: Item }) {
         href={href.item(item.id)}
         data-testid="step-link"
         className={cn(
-          'flex-1 after:absolute after:inset-0 focus-visible:outline-none',
+          'min-w-0 flex-1 after:absolute after:inset-0 focus-visible:outline-none',
           'focus-visible:after:outline-2 focus-visible:after:outline-offset-[-3px] focus-visible:after:outline-brand-accent',
           item.done && 'text-muted-foreground line-through',
         )}
       >
         {item.title}
       </a>
-      <span className="flex items-center gap-4 text-small text-muted-foreground">
+      <ChevronRight aria-hidden className="size-5 shrink-0 text-muted-foreground sm:order-last" strokeWidth={1.5} />
+      <span className="flex w-full items-center gap-4 pl-[38px] text-small text-muted-foreground sm:w-auto sm:pl-0">
         {total > 0 && (
           <span title={`${done} of ${total} done`}>
             {done}/{total}
           </span>
         )}
-        {owner && <span>{owner.id === user.id ? 'You' : owner.name.split(' ')[0]}</span>}
         {item.due && <span>{formatDate(item.due)}</span>}
+        <button
+          type="button"
+          data-testid="remove-item"
+          aria-label={`Remove ${item.title}`}
+          title="Remove"
+          onClick={() => setState((s) => ({ ...s, projects: removeItem(s.projects, item.id) }))}
+          className="relative z-10 -mx-2 grid size-9 shrink-0 place-items-center rounded-control opacity-0 transition-opacity group-hover:opacity-100 hover:bg-hover hover:text-foreground focus-visible:opacity-100 pointer-coarse:opacity-100"
+        >
+          <Trash2 aria-hidden className="size-[18px]" strokeWidth={1.5} />
+        </button>
+        <OwnerSelect item={item} inline />
       </span>
-      <button
-        type="button"
-        data-testid="remove-item"
-        aria-label={`Remove ${item.title}`}
-        title="Remove"
-        onClick={() => setState((s) => ({ ...s, projects: removeItem(s.projects, item.id) }))}
-        className="relative z-10 grid size-9 place-items-center rounded-control text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:bg-hover hover:text-foreground focus-visible:opacity-100"
-      >
-        <Trash2 aria-hidden className="size-[18px]" strokeWidth={1.5} />
-      </button>
-      <ChevronRight aria-hidden className="size-5 text-muted-foreground" strokeWidth={1.5} />
     </li>
   )
 }
 
+/** Add a sub-item: a visible field and an Add button that always responds — with an empty field it focuses the field. */
 function AddItem({ parentId }: { parentId: string }) {
   const [title, setTitle] = useState('')
+  const input = useRef<HTMLInputElement>(null)
   function add(event: FormEvent) {
     event.preventDefault()
     const name = title.trim()
-    if (!name) return
-    update(parentId, (it) => ({ ...it, children: [...it.children, blankItem(name)] }))
-    setTitle('')
+    if (name) {
+      update(parentId, (it) => ({ ...it, children: [...it.children, blankItem(name)] }))
+      setTitle('')
+    }
+    input.current?.focus()
   }
   return (
     <form onSubmit={add} className="flex min-h-14 items-center gap-4 px-5 py-2">
       <Plus aria-hidden className="size-[22px] shrink-0 text-muted-foreground" strokeWidth={1.5} />
       <input
+        ref={input}
         data-testid="add-item-input"
         aria-label="New step"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Add a step"
-        className="h-10 flex-1 rounded-control bg-transparent px-2 -mx-2"
+        className="h-10 min-w-0 flex-1 rounded-control border border-input bg-surface px-3"
       />
-      <Button type="submit" variant="secondary" data-testid="add-item" disabled={!title.trim()} className="h-9 px-4">
+      <Button type="submit" variant="secondary" data-testid="add-item" className="h-10 px-4">
         Add
       </Button>
     </form>

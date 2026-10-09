@@ -2,6 +2,7 @@ import { Check, ChevronDown } from 'lucide-react'
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { Breadcrumbs, Button, cn, Tag } from '../components/ui'
 import { comingSoon, infoEvent } from '../content/content'
+import { user } from '../data/seed'
 import { blankItem, instantiate } from '../items'
 import { href, navigate } from '../router'
 import { setState } from '../store'
@@ -18,10 +19,12 @@ export function NewProject({ template }: { template: string | null }) {
   function create(event: FormEvent) {
     event.preventDefault()
     const name = title.trim()
-    const project =
+    const created =
       selected === infoEvent.id
         ? { ...instantiate(infoEvent), title: name || infoEvent.title, template: infoEvent.id }
         : blankItem(name || 'Untitled project')
+    // Whoever creates a project owns it at once (Simon, 2026-10-09); the sub-items start without an owner.
+    const project = { ...created, owner: user.id }
     setState((s) => ({ ...s, projects: [...s.projects, project] }))
     navigate(href.item(project.id))
   }

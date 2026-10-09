@@ -3,13 +3,13 @@ import { Fragment, type ComponentProps, type ReactNode } from 'react'
 
 export const cn = (...classes: (string | false | null | undefined)[]) => classes.filter(Boolean).join(' ')
 
-// Buttons (Spec 32): radius 8, no shadow; primary = ink fill with cream text, secondary = outlined.
+// Buttons (Spec 32): radius 8, 1px border, no shadow; primary = ink fill with cream text, secondary = outlined.
 const buttonBase =
   'inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-control px-5 text-body font-semibold whitespace-nowrap transition-colors disabled:cursor-not-allowed disabled:opacity-50'
 
 export const buttonClass = {
   primary: cn(buttonBase, 'bg-foreground text-background hover:bg-muted-foreground'),
-  secondary: cn(buttonBase, 'border-[1.5px] border-input text-foreground hover:bg-hover'),
+  secondary: cn(buttonBase, 'border border-input text-foreground hover:bg-hover'),
 }
 
 type ButtonProps = ComponentProps<'button'> & { variant?: keyof typeof buttonClass }
@@ -74,7 +74,7 @@ export function Checkbox({ checked, onChange, label, testId, className }: Checkb
       data-testid={testId}
       onClick={() => onChange(!checked)}
       className={cn(
-        'grid size-[22px] shrink-0 place-items-center rounded-[6px] border-[1.5px] transition-colors',
+        'grid size-[22px] shrink-0 place-items-center rounded-control border transition-colors',
         checked ? 'border-foreground bg-foreground text-background' : 'border-input bg-surface hover:border-foreground',
         className,
       )}

@@ -59,6 +59,9 @@ with sync_playwright() as p:
     expect(page.get_by_test_id("item-title")).to_have_value(TITLE)
     expect(tid("step")).to_have_count(6)
     expect(tid("from-template")).to_be_visible()
+    expect(tid("owner-select")).to_have_value("sam")  # whoever creates a project owns it
+    expect(tid("step-owner")).to_have_count(6)  # sub-items start without an owner
+    expect(tid("step-owner").first).to_have_value("")
     shot("project")
     shot("project-full", full=True)
     tid("guidance-toggle").click()
@@ -66,6 +69,15 @@ with sync_playwright() as p:
     page.reload()
     expect(tid("guidance-toggle")).to_have_attribute("aria-expanded", "false")  # remembered per item
     shot("project-guidance-collapsed")
+    # the owner inline in the list of sub-items
+    tid("step").filter(has_text="Location").get_by_test_id("step-owner").select_option(label="Priya Nair")
+    expect(tid("step").filter(has_text="Location").get_by_test_id("step-owner")).to_have_value("priya")
+    expect(tid("item-title")).to_have_value(TITLE)  # changing the owner did not open the row
+    shot("project-inline-owner")
+    tid("step-link").filter(has_text="Location").click()
+    expect(tid("owner-select")).to_have_value("priya")  # the same field as on the item's own page
+    page.go_back()
+    expect(tid("step")).to_have_count(6)
 
     # a sub-project, then a task
     tid("step-link").filter(has_text="Promote the event").click()
@@ -81,18 +93,31 @@ with sync_playwright() as p:
     tid("done-checkbox").click()
     expect(tid("done-checkbox")).to_have_attribute("aria-checked", "true")
     shot("task-owner-due-done")
+    # a task takes sub-items too
+    tid("add-item-input").click()
+    page.keyboard.type("Ask Amara for a photo of the venue")
+    tid("add-item").click()
+    expect(tid("step")).to_have_count(1)
 
     # back up: add and remove an item
     page.get_by_role("navigation", name="Breadcrumb").get_by_role("link", name="Promote the event").click()
     expect(tid("step")).to_have_count(6)
-    tid("add-item-input").fill("Ask the uni climate group to share it")
+    tid("add-item").click()  # nothing typed yet: Add puts the cursor into the field instead of doing nothing
+    expect(tid("add-item-input")).to_be_focused()
+    expect(tid("step")).to_have_count(6)
+    page.keyboard.type("Ask the uni climate group to share it")
     tid("add-item").click()
     expect(tid("step")).to_have_count(7)
+    expect(tid("add-item-input")).to_be_focused()  # ready for the next one
+    page.keyboard.type("Ask the library to put up a poster")
+    page.keyboard.press("Enter")
+    expect(tid("step")).to_have_count(8)
+    expect(tid("step").last).to_contain_text("Ask the library to put up a poster")
     row = tid("step").filter(has_text="(optional) Print flyers")
     row.hover()
     shot("sub-project-added-item-hover-remove")
     row.get_by_test_id("remove-item").click()
-    expect(tid("step")).to_have_count(6)
+    expect(tid("step")).to_have_count(7)
     shot("sub-project-removed-item")
 
     # the project again, then its template on Resources
@@ -130,6 +155,7 @@ with sync_playwright() as p:
     # My projects with the project, banner dismissed
     tid("tab-projects").click()
     expect(tid("project-card")).to_have_count(1)
+    expect(tid("project-card")).to_contain_text("Owner: you")
     shot("my-projects")
     tid("banner-dismiss").click()
     expect(tid("banner")).to_have_count(0)

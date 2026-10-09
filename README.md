@@ -9,7 +9,8 @@ Live: https://pauseai.github.io/volunteer-portal-prototype/
 ## Demo state and reset
 
 State lives in the browser's `localStorage` (key `pauseai-volunteer-portal-prototype:v1`); a first visit starts as a
-new organizer with no projects. Two ways to reset it:
+new organizer (Sam Rivera) with no projects. A project is owned by whoever creates it; its sub-items start without an
+owner. Two ways to reset it:
 
 1. Open the site with `?reset=1`, e.g. https://pauseai.github.io/volunteer-portal-prototype/?reset=1 — the parameter
    clears the state and removes itself from the address bar.
@@ -27,13 +28,15 @@ For scripted walkthroughs and recordings (`page.get_by_test_id(...)` in Playwrig
 | New project: title, template cards, browse toggle, library rows, create | `project-title`, `template-empty`, `template-info-event`, `template-protest`, `browse-templates`, `library-<id>`, `create-project` |
 | Item page: title, done, owner, due, from-template link | `item-title`, `done-checkbox`, `owner-select`, `due-input`, `from-template` |
 | Guidance block, its toggle | `guidance`, `guidance-toggle` |
-| Sub-item rows: row, done box, link, remove | `step`, `step-done`, `step-link`, `remove-item` |
-| Add a sub-item: input, button | `add-item-input`, `add-item` |
+| Sub-item rows: row, done box, link, remove, owner | `step`, `step-done`, `step-link`, `remove-item`, `step-owner` |
+| Add a sub-item: input, button (with an empty input the button focuses it) | `add-item-input`, `add-item` |
 | Resources: cards, use-template button, template steps | `resource-<id>`, `use-template`, `resource-step` |
 | Teams: city search, rows, apply buttons | `city-search`, `local-group`, `national-team`, `apply-<id>` |
 | Reset | `reset-demo` |
 
 `scripts/walkthrough.py [url] [out_dir]` drives the whole new-organizer flow at 1440×900 and screenshots every screen.
+Date fields follow the browser's locale; for dd/mm/yyyy in a recording, launch Chromium with the environment variables
+`LANG=en_GB.UTF-8`, `LANGUAGE=en_GB`, `LC_ALL=en_GB.UTF-8` (Playwright's `locale="en-GB"` alone does not change them).
 
 ## Content
 

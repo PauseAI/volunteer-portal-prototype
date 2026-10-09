@@ -102,7 +102,7 @@ function Banner() {
           You are {user.name}, who just started the local group PauseAI Pausetown. Names are made up; what you change stays in this browser.
         </p>
         <p className="text-muted-foreground">
-          Click <span className="font-semibold text-foreground">New project</span> to see the flow.
+          Click <span className="font-semibold text-foreground">New project</span> and pick the Info event template to see the flow.
         </p>
       </div>
       <button
