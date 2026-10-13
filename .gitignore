@@ -25,3 +25,4 @@ dist-ssr
 
 # raw recordings of video/record.py
 video/out
+orca.yaml
